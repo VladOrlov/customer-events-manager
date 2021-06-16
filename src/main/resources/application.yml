@@ -1,0 +1,34 @@
+server:
+  port: 8085
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      client-id: customer-events-manager
+      group-id: customer-events-manager
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+
+  data:
+    mongodb:
+      uri: "mongodb+srv://admin:jaLnTMcAP65VwhB@kpi.xrcdr.mongodb.net/<dbname>?retryWrites=true&w=majority"
+      database: transactions_monitoring
+      auto-index-creation: on
+
+    cassandra:
+      contact-points: 127.0.0.1
+      port: 9042
+      keyspace-name: "wallet"
+      connection:
+        connection-timeout: 10s
+      schema-action: create_if_not_exists
+      local-datacenter: "datacenter1"
